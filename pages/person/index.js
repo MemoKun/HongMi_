@@ -11,12 +11,40 @@ Page({
     data: {
 
         get_formid: true,
-        user_inf: null,
+        user_inf: [{
+          head_img:'/img/head1.jpg',
+          nickname:'小黄鸡',
+          name:'小黄鸡',
+          school:'中南大学',
+        }],
         save_status: false,
         form_id: null,
         tab_style: tab_style,
         tab_index: 0,
-        publish_data: [],
+        publish_data: [
+          {
+            type:'activity',
+            activity_title: '算法讨论会',
+            activity_dec: '一起讨论一下LeetCode里比较经典的一些题目',
+            activity_img: '/img/banner2.png',
+            end_time: '2019.12.22',
+            publish_user_img: '/img/head1.jpg',
+            publish_user_nickname: '小黄鸡',
+            distance: '1km', 
+            is_status:1
+          },
+          {
+            type: 'answer',
+            activity_title: '有哪些你不知道的算法经验技巧？',
+            activity_dec: '今天和大家分享一下一些算法经典题的技巧解法...',
+            activity_img: '/img/banner2.png',
+            end_time: '2019.10.15',
+            publish_user_img: '/img/head1.jpg',
+            publish_user_nickname: '小黄鸡',
+            distance: '1km',
+            is_status: 1
+          },
+        ],
         publish_sum_data_page: 0,
         publish_sum_data_num: 0,
         publish_page_start: 0,
@@ -25,7 +53,30 @@ Page({
         // 解析标签
         analyze_tab: [],
 
-        join_data: [],
+        join_data: [
+          {
+            type: 'answer',
+            activity_title: '三招教你如何应对ACM',
+            activity_dec: '题主讲的很全面，不错！',
+            activity_img: '/img/banner2.png',
+            end_time: '2019.10.15',
+            publish_user_img: '/img/head2.jpg',
+            publish_user_nickname: '孙静',
+            distance: '165km',
+            is_status: 1
+          },
+          {
+            type: 'activity',
+            activity_title: '数学建模分享会',
+            activity_dec: '邀请了一些ACM获奖学长学姐来分享经验...',
+            activity_img: '/img/banner.png',
+            end_time: '2019.10.18',
+            publish_user_img: '/img/head3.jpg',
+            publish_user_nickname: '数学建模爱好者',
+            distance: '15km',
+            is_status: 0
+          }
+        ],
         join_sum_data_page: 0,
         join_sum_data_num: 0,
         join_page_start: 0,
@@ -233,71 +284,71 @@ Page({
             }
         });
     },
-    getpublish_act: function (current_page) {
-        var that = this;
-        if (!current_page) {
-            current_page = 0;
-        }
-        var page_start = that.data.publish_page_end * current_page;
-        var page_end = that.data.publish_page_end;
-        wx.request({
-            url: app.globalData.url + 'index.php?g=&m=api&a=my_publish_list_api',
-            method: 'GET',
-            data: {
-                user_openid: wx.getStorageSync('openid'),
-                page_start: page_start,
-                page_end: page_end
-            },
-            success: function (res) {
-                if (res.data.status == 1 && res.data.data) {
+    // getpublish_act: function (current_page) {
+    //     var that = this;
+    //     if (!current_page) {
+    //         current_page = 0;
+    //     }
+    //     var page_start = that.data.publish_page_end * current_page;
+    //     var page_end = that.data.publish_page_end;
+    //     wx.request({
+    //         url: app.globalData.url + 'index.php?g=&m=api&a=my_publish_list_api',
+    //         method: 'GET',
+    //         data: {
+    //             user_openid: wx.getStorageSync('openid'),
+    //             page_start: page_start,
+    //             page_end: page_end
+    //         },
+    //         success: function (res) {
+    //             if (res.data.status == 1 && res.data.data) {
 
-                    wx.hideToast();
+    //                 wx.hideToast();
 
-                    var old_data = that.data.publish_data;
+    //                 var old_data = that.data.publish_data;
 
-                    var analyze_tab = that.data.analyze_tab;
+    //                 var analyze_tab = that.data.analyze_tab;
 
-                    var res_data = res.data.data.data;
+    //                 var res_data = res.data.data.data;
 
-                    for (var i = 0; i < res_data.length; i++) {
+    //                 for (var i = 0; i < res_data.length; i++) {
 
-                        analyze_tab.push(res_data[i].apply_num);
+    //                     analyze_tab.push(res_data[i].apply_num);
 
-                        old_data.push(res_data[i]);
+    //                     old_data.push(res_data[i]);
 
-                    }
+    //                 }
 
-                    for (let i = 0; i < analyze_tab.length; i++) {
-                        WxParse.wxParse('reply' + i, 'html', analyze_tab[i], that);
-                        if (i === analyze_tab.length - 1) {
-                            WxParse.wxParseTemArray("replyTemArray", 'reply', analyze_tab.length, that)
-                        }
-                    }
+    //                 for (let i = 0; i < analyze_tab.length; i++) {
+    //                     WxParse.wxParse('reply' + i, 'html', analyze_tab[i], that);
+    //                     if (i === analyze_tab.length - 1) {
+    //                         WxParse.wxParseTemArray("replyTemArray", 'reply', analyze_tab.length, that)
+    //                     }
+    //                 }
 
-                    if (current_page == 0) {
+    //                 if (current_page == 0) {
 
-                        that.setData({
+    //                     that.setData({
 
-                            publish_data: res_data,
-                            publish_sum_data_page: res.data.data.page.sum_data_page,
-                            publish_sum_data_num: res.data.data.page.sum_data_num
+    //                         publish_data: res_data,
+    //                         publish_sum_data_page: res.data.data.page.sum_data_page,
+    //                         publish_sum_data_num: res.data.data.page.sum_data_num
 
-                        });
+    //                     });
 
-                    } else {
-                        // for (var i = 0; i < res_data.length;i++){
+    //                 } else {
+    //                     // for (var i = 0; i < res_data.length;i++){
 
-                        //     old_data.push(res_data[i]);
-                        // }
-                        that.setData({
-                            publish_data: old_data
-                        });
+    //                     //     old_data.push(res_data[i]);
+    //                     // }
+    //                     that.setData({
+    //                         publish_data: old_data
+    //                     });
 
-                    }
-                }
-            }
-        })
-    },
+    //                 }
+    //             }
+    //         }
+    //     })
+    // },
     // 参与活动
     get_joinact: function (current_page) {
         var that = this;
@@ -591,41 +642,41 @@ Page({
     },
     onPullDownRefresh: function (e) {
 
-        wx.stopPullDownRefresh();
-        var that = this;
-        if (that.data.tab_index == 0) {
+        // wx.stopPullDownRefresh();
+        // var that = this;
+        // if (that.data.tab_index == 0) {
 
-            that.setData({
-                user_inf: null,
-                ave_status: false
-            });
+        //     that.setData({
+        //         user_inf: null,
+        //         ave_status: false
+        //     });
 
-            that.get_userinf();
+        //     that.get_userinf();
 
-        } else if (that.data.tab_index == 1) {
-            that.setData({
-                publish_data: [],
-                publish_sum_data_page: 0,
-                publish_sum_data_num: 0,
-                publish_page_start: 0,
-                publish_page_end: 3,
-                publish_current_page: 0,
-                // 解析标签
-                analyze_tab: []
-            });
-            that.getpublish_act();
-        } else if (that.data.tab_index == 2) {
-            that.setData({
-                join_data: [],
-                join_sum_data_page: 0,
-                join_sum_data_num: 0,
-                join_page_start: 0,
-                join_page_end: 2,
-                join_current_page: 0,
-                join_analyze_tab: []
-            });
-            that.get_joinact();
-        }
-    }
+        // } else if (that.data.tab_index == 1) {
+        //     that.setData({
+        //         publish_data: [],
+        //         publish_sum_data_page: 0,
+        //         publish_sum_data_num: 0,
+        //         publish_page_start: 0,
+        //         publish_page_end: 3,
+        //         publish_current_page: 0,
+        //         // 解析标签
+        //         analyze_tab: []
+        //     });
+        //     that.getpublish_act();
+        // } else if (that.data.tab_index == 2) {
+        //     that.setData({
+        //         join_data: [],
+        //         join_sum_data_page: 0,
+        //         join_sum_data_num: 0,
+        //         join_page_start: 0,
+        //         join_page_end: 2,
+        //         join_current_page: 0,
+        //         join_analyze_tab: []
+        //     });
+        //     that.get_joinact();
+        // }
+ }
 
 });

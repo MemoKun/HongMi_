@@ -1,0 +1,52 @@
+<!--pages/society/society.wxml-->
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-index="{{index}}" class="item {{currentIndex==index?'active':''}}"
+  bindtap="navbarTab" wx:key="unique">{{item}}</text>
+</view>
+<!-- 问答 -->
+<view hidden="{{currentIndex!==0}}">
+  <view class="list">
+   <view wx:for="{{answerList}}" wx:key="{{index}}">
+    <view class="list_item">
+      <navigator url="../answer/answer">
+        <view class="layout_horizontal">
+          <image src="{{item.portrait_src}}" class="portrait"></image>
+          <view class="username">{{item.username}} ·</view>
+          <view class="school">{{item.school}}</view>
+        </view>
+        <view>
+          <view class="title">{{item.title}}</view>
+        </view>
+        <view>
+          <view class="date">{{item.date}}</view>
+        </view>
+      </navigator> 
+    </view>
+    <view class="internal"></view>
+  </view>
+  </view>
+</view>
+<!-- 组队 -->
+<view hidden="{{currentIndex!==1}}">
+  <view class="list">
+   <view wx:for="{{teamList}}" wx:key="{{index}}">
+    <view class="list_item">
+      <navigator url="../team/team">
+        <view class="layout_horizontal">
+          <image src="{{item.portrait_src}}" class="portrait"></image>
+          <view class="username">{{item.username}} ·</view>
+          <view class="school">{{item.school}}</view>
+        </view>
+        <view class="team_title">
+          <view class="team_type">[{{item.type}}]</view>
+          <view class="title">{{item.title}}</view>
+        </view>
+        <view>
+          <view class="date">{{item.date}}</view>
+        </view>
+      </navigator> 
+    </view>
+    <view class="internal"></view>
+  </view>
+  </view>
+</view>

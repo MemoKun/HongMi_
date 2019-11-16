@@ -1,0 +1,99 @@
+/* pages/society/society.wxss */
+.navbar{
+ display: flex;
+ width: 100%;
+ flex-direction: row;
+ line-height: 80rpx;
+ position: fixed;
+ top: 0;
+}
+
+.navbar .item{
+ flex: auto;
+ font-size: 30rpx;
+ text-align: center;
+ background: #fff;
+ font-weight: bold;
+}
+.navbar .item.active{
+ color: #FED612;
+ position: relative;
+}
+.navbar .item.active::after{
+ content: "";
+ display: block;
+ position: absolute;
+ height: 4rpx;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ background: #FED612;
+}
+
+.internal{
+  height: 5px;
+  background-color: rgb(247,247,247);
+  border-bottom: 1px solid gainsboro;
+}
+.list{
+    margin-top:40px;
+}
+
+/*横向布局  */
+.layout_horizontal{
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -30px;
+}
+
+.list .list_item{
+    margin-top:10px;
+    padding:10px;
+    height:90px;
+    border-bottom:1px solid gainsboro;
+}
+.portrait{
+  width:20px;
+  height:20px;
+  margin-right:5px;
+  margin-left:-5px;
+  border-radius: 10px;
+}
+.username{
+  color:rgb(78, 168, 241);
+  height:20px;
+  margin-top:-2px;
+  margin-right: 5px;
+  font-size: 17px;
+}
+.school{
+    color:gray;
+    flex:1;
+    height:20px;
+    margin-left: 5px;
+    font-size: 15px;
+  }
+.team_title{
+  display: flex;
+  flex-direction: row;
+}
+.team_type{
+    color:rgb(7,193,96);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font:20px '微软雅黑';
+}
+.title{
+    color:#333;
+    margin-left:10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font:20px '微软雅黑';
+  }
+.date{
+    color:gainsboro;
+    margin-left:10px;
+    font-size: 15px;
+    float: right;
+  }

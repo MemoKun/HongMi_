@@ -1,3 +1,33 @@
+.navbar{
+ display: flex;
+ width: 100%;
+ flex-direction: row;
+ line-height: 80rpx;
+ position: fixed;
+ top: 0;
+}
+
+.navbar .item{
+ flex: auto;
+ font-size: 30rpx;
+ text-align: center;
+ background: #fff;
+ font-weight: bold;
+}
+.navbar .item.active{
+ color: #FED612;
+ position: relative;
+}
+.navbar .item.active::after{
+ content: "";
+ display: block;
+ position: absolute;
+ height: 4rpx;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ background: #FED612;
+}
 .parent{
     padding-bottom:30rpx;
 }

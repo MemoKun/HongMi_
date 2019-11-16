@@ -1,0 +1,60 @@
+<view class="topBar">
+  <text class="topTitle">问答详情</text>
+</view>
+<!-- 问题描述 -->
+<view class="question">
+  <view class="title">{{title}}</view>
+  <view class="layout_horizontal_info">
+    <view class="date">{{date}}</view>
+    <view class="read">阅读 {{read}} ·</view>
+    <view class="collect">收藏 {{collect}}</view>
+  </view>
+  <view class="layout_horizontal_user">
+    <image src="{{portrait_src}}" class="portrait"/>
+    <view class="username">{{username}} ·</view>
+    <view class="school">{{school}}</view>
+  </view>
+  <view class="question_content">{{question}}</view>
+  <view class="internal">
+    <text class="quantity">全部回答 {{commentList.length}}</text>
+    <text class="sort">按时间排序∨</text>
+  </view>
+</view>
+<!-- 回答列表 -->
+<view>
+  <view class="comment_list">
+    <view wx:for="{{commentList}}" wx:key="{{index}}" class="comment_item">
+    <view class="layout_horizontal_user">
+      <image src="{{item.head_src}}" class="comment_head"></image>
+      <view>
+        <view class="comment_username">{{item.username}}</view>
+        <view class="comment_date">{{item.date}}  {{item.school}}</view>
+      </view>
+      <image src="/img/up.png" class="comment_info"></image>
+      <text class="comment_info_nums">{{item.up_nums}}</text>
+      <image src="/img/comment1.png" class="comment_info"></image>
+      <text class="comment_info_nums">{{item.reply.length}}</text>
+    </view>
+    <view class="comment_content">{{item.comment}}</view>
+    <view wx:if="{{item.reply.length>0}}" class="reply">
+      <view wx:for="{{item.reply}}" wx:for-item="replyitem" class="reply_item">
+        <view class="reply_user">{{replyitem.reply_user}}:</view>
+        <view class="reply_content">{{replyitem.reply_content}}</view>
+      </view>
+    </view>
+    </view>
+  </view>
+  <view class="comment_bottom">
+    <text >已经到底啦~</text>
+  </view>
+</view>
+<!-- 底部评论 -->
+<view class="comment">
+  <view class="comment_area">
+    <textarea class="text" placeholder-class="weui-input" placeholder="  我要回答" fixed="{{true}}" 
+    show-confirm-bar="false" maxlength="140" cursor-spacing="15"></textarea>
+  </view>
+  <image class="comment_icon" src="/img/comment1.png" />
+  <image class="comment_icon" src="/img/star.png" />
+  <image class="comment_icon" src="/img/share2.png" />
+</view>
